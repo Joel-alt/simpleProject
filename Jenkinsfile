@@ -16,8 +16,10 @@ pipeline {
           dir("server") {
             sh 'npm install'
           }
-          sh 'concurrently "cd server && node index.js" "cd client && npm start"'
         }
+    }
+    stage('run project') {
+        sh 'concurrently "cd server && node index.js" "cd client && npm start"'
     }
   }
 }
