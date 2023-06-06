@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 
+const calculator = require('./calculator.js')
+
 const app = express()
 const port = 8000
 app.use((_req, res, next) => {
@@ -19,7 +21,7 @@ app.get('/', (req, res) => {
 
 app.post('/compute', (req, res) => {
     let data = req.body;
-    const result = data.firstNumber*1 + data.secondNumber*1;
+    const result = calculator.sum(data.firstNumber*1,data.secondNumber*1);
     const resultObject = { "result": result };
     res.send(resultObject);
 })
