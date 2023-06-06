@@ -20,6 +20,16 @@ pipeline {
         }
       }
     }
+    stage('Test application') {
+      steps {
+        dir("client") {
+          sh 'npm run test'
+        }
+        dir("server") {
+          sh 'npm run test'
+        }
+      }
+    }
     stage('Run project') {
       steps{
         sh 'concurrently "cd server && node index.js" "cd client && npm start"'
