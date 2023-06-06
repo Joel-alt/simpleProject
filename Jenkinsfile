@@ -21,7 +21,9 @@ pipeline {
       }
     }
     stage('Run project') {
+      steps{
         sh 'concurrently "cd server && node index.js" "cd client && npm start"'
+      }
     }
   }
 }
