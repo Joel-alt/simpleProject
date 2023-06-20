@@ -9,8 +9,6 @@ services:
         ports:
             - 8080:8080
             - 50000:50000
-            - 3000:3000
-            - 8000:8000
         container_name: jenkins
         volumes:
             - //var/run/docker.sock:/var/run/docker.sock
