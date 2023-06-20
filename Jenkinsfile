@@ -1,9 +1,8 @@
 pipeline {
-  agent any
-
-  tools {
-    nodejs "node"
+  agent {
+      label 'java-docker-slave'
   }
+  
   stages {
     stage('Cloning Git') {
       steps {
