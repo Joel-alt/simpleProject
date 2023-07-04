@@ -29,9 +29,16 @@ pipeline {
         }
       }
     }
-    stage('Run project') {
-      steps{
-        sh 'concurrently "cd server && node index.js" "cd client && npm start"'
+    stage('Build application') {
+      steps {
+        dir("client") {
+          sh 'npm run build'
+        }
+      }
+    }
+    stage('Notify on discord') {
+      steps {
+        discordSend description: 'Jenkins Pipeline Build', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
       }
     }
   }
