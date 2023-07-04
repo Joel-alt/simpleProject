@@ -24,13 +24,13 @@ function App() {
     }
 
     return (
-    <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-        <h1>Enter your first number</h1>
-        <input type="text" value={firstNumber} onChange={(e)=>{setFirstNumber(e.target.value)}}/>
-        <h1>Enter your second number</h1>
-        <input type="text" value={secondNumber} onChange={(e)=>{setSecondNumber(e.target.value)}}/>
-        <button onClick={addNumbers}>Add</button>
-        <h1>Result: {result}</h1>
+    <div id="containerDiv" style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+        <h1 id="firstTitle">Enter your first number</h1>
+        <input id="firstInput" type="text" value={firstNumber} onChange={(e)=>{setFirstNumber(e.target.value)}}/>
+        <h1 id="secondTitle">Enter your second number</h1>
+        <input id="secondInput" type="text" value={secondNumber} onChange={(e)=>{setSecondNumber(e.target.value)}}/>
+        <button id="addButton" onClick={addNumbers}>Add</button>
+        <h1 id="result">Result: {result}</h1>
     </div>
   );
 }
