@@ -11,34 +11,48 @@ pipeline {
     }
     stage('Install dependencies') {
       steps {
-        dir("client") {
-          sh 'npm install'
-        }
-        dir("server") {
-          sh 'npm install'
+        script{
+            try{
+                dir("client") {
+                sh 'npm install'
+                }
+                dir("server") {
+                sh 'npm install'
+                }
+            } catch (err) {
+                discordSend description: 'The installation of dependencies failed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
+            }
         }
       }
     }
     stage('Test application') {
       steps {
-        dir("client") {
-          sh 'npm run test'
-        }
-        dir("server") {
-          sh 'npm run test'
+        script{
+            try {
+                dir("client") {
+                sh 'npm run test'
+                }
+                dir("server") {
+                sh 'npm run test'
+                }
+            } catch (err) {
+                discordSend description: 'The tests failed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
+            }
         }
       }
     }
     stage('Build application') {
       steps {
-        dir("client") {
-          sh 'npm run build'
+        script {
+            try {
+                dir("client") {
+                sh 'npm run build'
+                }
+                discordSend description: 'Jenkins build pipeline succeed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
+            } catch (err) {
+                discordSend description: 'Jenkins build pipeline failed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
+            }
         }
-      }
-    }
-    stage('Notify on discord') {
-      steps {
-        discordSend description: 'Jenkins Pipeline Build', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
       }
     }
   }
