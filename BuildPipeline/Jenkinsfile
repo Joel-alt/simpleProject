@@ -11,28 +11,43 @@ pipeline {
     }
     stage('Install dependencies') {
       steps {
-        dir("client") {
-          sh 'npm install'
-        }
-        dir("server") {
-          sh 'npm install'
+        try{
+            dir("client") {
+            sh 'npm install'
+            }
+            dir("server") {
+            sh 'npm install'
+            }
+        } catch (err) {
+            discordSend description: 'The installation of dependencies failed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
         }
       }
     }
     stage('Test application') {
       steps {
-        dir("client") {
-          sh 'npm run test'
-        }
-        dir("server") {
-          sh 'npm run test'
+        try {
+            dir("client") {
+            sh 'npm run test'
+            }
+            dir("server") {
+            sh 'npm run test'
+            }
+        } catch (err) {
+            discordSend description: 'The tests failed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
         }
       }
     }
     stage('Build application') {
       steps {
-        dir("client") {
-          sh 'npm run build'
+        try {
+            dir("client") {
+            sh 'npm run build'
+            }
+            dir("server") {
+            sh 'npm run build'
+            }
+        } catch (err) {
+            discordSend description: 'The build failed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
         }
       }
     }
