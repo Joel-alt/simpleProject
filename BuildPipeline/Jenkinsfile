@@ -48,9 +48,6 @@ pipeline {
                 dir("client") {
                 sh 'npm run build'
                 }
-                dir("server") {
-                sh 'npm run build'
-                }
                 discordSend description: 'Jenkins Pipeline Build', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
             } catch (err) {
                 discordSend description: 'The build failed', webhookURL: 'https://discord.com/api/webhooks/1125680197648269312/GiYNn6Dft6Py7k2nydjpwKZPy4r2-TmpoBY6dgfIz5vl-_AAn4Z8TKsOFz0bNduMM99J'
