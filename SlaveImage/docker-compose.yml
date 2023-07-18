@@ -1,0 +1,31 @@
+FROM ubuntu:latest
+
+RUN apt update
+
+RUN apt install  openssh-server sudo -y
+
+RUN apt-get install -qy openjdk-11-jdk 
+
+RUN apt install -y git
+
+RUN apt install -y curl
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+
+RUN apt-get install nodejs
+
+RUN useradd -rm -d /home/test -s /bin/bash -g root -G sudo -u 1000 test 
+
+RUN usermod -aG sudo test
+
+RUN service ssh start
+
+RUN npm install -g concurrently
+
+RUN  echo 'test:test' | chpasswd
+
+EXPOSE 22
+EXPOSE 3000
+EXPOSE 8000
+
+CMD ["/usr/sbin/sshd","-D"]
